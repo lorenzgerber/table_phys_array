@@ -26,7 +26,7 @@
  *                     the parameters are equal, and >0 if the left
  *                     parameter is larger than the right item.
  * Returns: A pointer to the table. NULL if creation of the table failed. */
-Table *table_create(CompareFunction *compare_function){
+Table *table_create(){//CompareFunction *compare_function){
     MyTable *t = calloc(sizeof (MyTable),1);
     if (!t)
         return NULL;
@@ -39,11 +39,11 @@ Table *table_create(CompareFunction *compare_function){
 /* Install a memory handling function responsible for removing a key when removed from the table
  *  table - Pointer to the table.
  *  freeFunc- Pointer to a function that is called for  freeing all
- *                     the memory used by keys inserted into the table*/
+ *                     the memory used by keys inserted into the table
 void table_setKeyMemHandler(Table *table, KeyFreeFunc *freeFunc){
     MyTable *t = (MyTable*)table;
     t->keyFree=freeFunc;
-}
+}*/
 
 
 /* Install a memory handling function responsible for removing a value when removed from the table

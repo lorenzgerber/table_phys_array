@@ -10,28 +10,28 @@
 #include "array.h"
 
 /* Type for keys in the table */
-typedef void *KEY;
+typedef int KEY;
 /* Type for values in the table */
 typedef void *VALUE;
 
 /* Type for function comparing two keys (see create for details)*/
-typedef int CompareFunction(KEY,KEY);
+//typedef int CompareFunction(KEY,KEY);
 
 /*Types for memory deallocation functions */
-typedef void KeyFreeFunc(KEY);
+//typedef void KeyFreeFunc(KEY);
 typedef void ValueFreeFunc(VALUE);
 
 typedef void /* void hÃ¤r kan ni om ni vill byta ut mot en egen struct i era tabellimplementationer */ Table;
 
 typedef struct MyTable {
     array *values;
-    CompareFunction *cf;
-    KeyFreeFunc *keyFree;
+    //CompareFunction *cf;
+    //KeyFreeFunc *keyFree;
     ValueFreeFunc *valueFree;
 } MyTable;
 
 typedef struct TableElement{
-    KEY key;
+    //KEY key;
     VALUE value;
 } TableElement;
 /* Creates a table.
@@ -41,13 +41,13 @@ typedef struct TableElement{
  *                     the parameters are equal, and >0 if the left
  *                     parameter is larger than the right item.
  * Returns: A pointer to the table. NULL if creation of the table failed. */
-Table *table_create(CompareFunction *compare_function);
+Table *table_create();//CompareFunction *compare_function);
 
 /* Install a memory handling function responsible for removing a key when removed from the table
  *  table - Pointer to the table.
  *  freeFunc- Pointer to a function that is called for  freeing all
  *                     the memory used by keys inserted into the table*/
-void table_setKeyMemHandler(Table *table,KeyFreeFunc *freeFunc);
+//void table_setKeyMemHandler(Table *table,KeyFreeFunc *freeFunc);
 
 /* Install a memory handling function responsible for removing a value when removed from the table
  *  table - Pointer to the table.
