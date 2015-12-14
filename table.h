@@ -21,7 +21,7 @@ typedef void *VALUE;
 //typedef void KeyFreeFunc(KEY);
 typedef void ValueFreeFunc(VALUE);
 
-typedef void /* void hÃ¤r kan ni om ni vill byta ut mot en egen struct i era tabellimplementationer */ Table;
+typedef void Table;
 
 typedef struct MyTable {
     array *values;

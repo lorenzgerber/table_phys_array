@@ -30,20 +30,12 @@ Table *table_create(){//CompareFunction *compare_function){
     MyTable *t = calloc(sizeof (MyTable),1);
     if (!t)
         return NULL;
-    t->values=array_create(1, 0, ARRAY_SIZE);
-    array_setMemHandler(t->values, free);
-    t->cf = compare_function;
+
+    t->values=calloc(ARRAY_SIZE,sizeof(void *));
+
     return t;
 }
 
-/* Install a memory handling function responsible for removing a key when removed from the table
- *  table - Pointer to the table.
- *  freeFunc- Pointer to a function that is called for  freeing all
- *                     the memory used by keys inserted into the table
-void table_setKeyMemHandler(Table *table, KeyFreeFunc *freeFunc){
-    MyTable *t = (MyTable*)table;
-    t->keyFree=freeFunc;
-}*/
 
 
 /* Install a memory handling function responsible for removing a value when removed from the table
@@ -59,24 +51,15 @@ void table_setValueMemHandler(Table *table,ValueFreeFunc *freeFunc){
  *  table - Pointer to the table.
  * Returns: false if the table is not empty, true if it is. */
 bool table_isEmpty(Table *table){
+
     //loop through the whole array and check if all Null pointers
     MyTable *t = (MyTable*)table;
 
-    // get loop boundaries for array
-    array *aHigh = array_high(t->values);
-    array *aLow  = array_low(t->values);
-
-    int high = *((int*)array_inspectValue(aHigh,0));
-    int low = *((int*)array_inspectValue(aLow,0));
-    array_free(aHigh);
-    array_free(aLow);
-
-    for ( int pos = low; pos < high; pos++){
-        if(array_hasValue(t->values, pos)){
+    for ( int pos = 0; pos < ARRAY_SIZE; pos++){
+        if((int*)(t->values + pos)){
             return 0;
         }
     }
-
     return 1;
 }
 
@@ -94,27 +77,27 @@ void table_insert(Table *table, KEY key, VALUE value){
 
     // make a new table element
     TableElement *e=malloc(sizeof(TableElement));
-    e->key = key;
+    //e->key = key;
     e->value = value;
 
     // table element to work on
     TableElement *i;
 
     // get loop boundaries for array
-    array *aHigh = array_high(t->values);
-    array *aLow  = array_low(t->values);
+    //array *aHigh = array_high(t->values);
+    //array *aLow  = array_low(t->values);
 
-    int high = *((int*)array_inspectValue(aHigh,0));
-    int low = *((int*)array_inspectValue(aLow,0));
-    array_free(aHigh);
-    array_free(aLow);
+    //int high = *((int*)array_inspectValue(aHigh,0));
+    //int low = *((int*)array_inspectValue(aLow,0));
+    //array_free(aHigh);
+    //array_free(aLow);
 
     // loop through the table/array until either the same key found
     // or an emtpy space found
-    for ( int pos = low; pos < high; pos++){
+    for ( int pos = 0; pos < ARRAY_SIZE; pos++){
 
         // get TableElement of current array pos
-        i = array_inspectValue(t->values,pos);
+        i = t->values + pos;
 
         // if current array pos is empty, put in new element and break
         if(i == NULL){
@@ -254,9 +237,9 @@ void table_free(Table *table){
         i = array_inspectValue(t->values, pos);
 
         if(array_hasValue(t->values, pos)){
-            if(t->keyFree!=NULL) {
-                t->keyFree(i->key);
-            }
+            //if(t->keyFree!=NULL) {
+            //    t->keyFree(i->key);
+            //}
             if(t->valueFree!=NULL) {
                 t->valueFree(i->value);
             }
