@@ -55,7 +55,7 @@ bool table_isEmpty(Table *table){
     MyTable *t = (MyTable*)table;
 
     for ( int pos = 0; pos < ARRAY_SIZE; pos++){
-        if(*(t->values + pos)){
+        if(!(int*)(t->values + pos)){
             return 0;
         }
     }
@@ -79,16 +79,16 @@ void table_insert(Table *table, KEY key, VALUE value){
     e = value;
 
     // check if key <= ARRAY_SIZE
-    if(key <= ARRAY_SIZE){
+    if(*key <= ARRAY_SIZE){
         // check if there is already a value at key
-        if(*(t->values + key)){
+        if(!(int*)(t->values + *(int*)key)){
             if(t->valueFree!=NULL){
-                t->valueFree(*(t->values + key));
+                t->valueFree((int*)(t->values + *(int*)key));
             }
             printf("is not empty\n");
         }
         // set element at index = key
-        t->values[key] = e;
+        *(VALUE*)(t->values + *(int*)key) =  e;
     } else {
         printf("key out of array index range\n");
     }
@@ -111,7 +111,7 @@ VALUE table_lookup(Table *table, KEY key){
     // table element to work on
     VALUE *i;
 
-    i = *(t->values + key);
+    i = *(VALUE*)(t->values + *(int*)key);
 
     // if pos[key] is NULL return NULL, else, return value
     if (i == NULL) {
@@ -132,11 +132,11 @@ void table_remove(Table *table, KEY key){
     MyTable *t = (MyTable*)table;
 
     // if current array pos is empty, skip to next
-    if(*(t->values + key)){
+    if(!(int*)(t->values + *(int*)key)){
         if(t->valueFree!=NULL){
-            t->valueFree(*(t->values + key));
+            t->valueFree((VALUE*)(t->values + *(int*)key));
         }
-        *(t->values + key) = NULL;
+        *(VALUE*)(t->values + *(int*)key) = NULL;
     }
 }
 
@@ -152,9 +152,9 @@ void table_free(Table *table){
     MyTable *t = (MyTable*)table;
 
     for ( int pos = 0; pos < ARRAY_SIZE; pos++){
-        if(*(t->values + pos)){
+        if(!(int*)(t->values + pos)){
             if(t->valueFree!=NULL){
-                t->valueFree(*(t->values + pos));
+                t->valueFree((VALUE*)(t->values + pos));
             }
         }
     }

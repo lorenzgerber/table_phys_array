@@ -9,7 +9,7 @@
 #include <stdbool.h>
 
 /* Type for keys in the table */
-typedef int KEY;
+typedef int *KEY;
 /* Type for values in the table */
 typedef void *VALUE;
 

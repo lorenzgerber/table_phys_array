@@ -5,4 +5,4 @@ set(CMAKE_C_FLAGS "-std=c99")
 
 
 set(SOURCE_FILES table.c table.h main.c)
-add_executable(tabletest ${SOURCE_FILES} main.c)
+add_executable(main ${SOURCE_FILES} main.c)
