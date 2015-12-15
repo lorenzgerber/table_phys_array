@@ -155,7 +155,7 @@ void table_free(Table *table){
         if(*(t->values + pos)){
             if(t->valueFree!=NULL){
                 t->valueFree(*(t->values + pos));
-            };
+            }
         }
     }
 

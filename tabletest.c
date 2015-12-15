@@ -283,9 +283,11 @@ int main() {
   //correctnessTest();
   //printf("All correctness tests succeeded! Press enter to continue!\n");
   //getchar();
-  for (int i = 0; i < 50; i++) {
-    speedTest();
-  }
+  //for (int i = 0; i < 50; i++) {
+  //  speedTest();
+  //}
   //printf("Test completed.\n");
+  Table *table = table_create(compareInt);
+
   return 0;
 }

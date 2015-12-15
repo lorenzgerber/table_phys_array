@@ -28,3 +28,4 @@ int main() {
     table_free(table);
     return 0;
 }
+

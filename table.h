@@ -16,7 +16,7 @@ typedef void *VALUE;
 /*Types for memory deallocation functions */
 typedef void ValueFreeFunc(VALUE);
 
-typedef void /* void hÃ¤r kan ni om ni vill byta ut mot en egen struct i era tabellimplementationer */ Table;
+typedef void Table;
 
 typedef struct MyTable {
     void *values;
