@@ -21,14 +21,12 @@ int main() {
     char *value1 = "value1";
     char *value2 = "value2";
     char *value3 = "value3";
-    int *key1 = intPtrFromInt(3);
-    int *key2 = intPtrFromInt(12);
-    int *key3 = intPtrFromInt(4);
+    int *key1 = intPtrFromInt(1);
+    int *key2 = intPtrFromInt(2);
+    int *key3 = intPtrFromInt(3);
     table_insert(table, key1, value1);
     table_insert(table, key2, value2);
-    table_insert(table, key2, value3);
-    table_remove(table, key1);
-    table_insert(table, key3, value2);
+    table_insert(table, key3, value3);
     printf("%s\n", (char*)(table_lookup(table, key1)));
     printf("%s\n", (char*)(table_lookup(table, key3)));
     if(table_lookup(table, key2)){
